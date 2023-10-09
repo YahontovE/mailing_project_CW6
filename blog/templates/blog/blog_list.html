@@ -1,0 +1,40 @@
+{% extends 'mailing/base.html'  %}
+{% block content %}
+
+<main class="container">
+    <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+        <div class="col-md-6 mx-auto text-center">
+            <h1 class="display-4">Блог сайта рассылок</h1>
+        </div>
+    </div>
+    <div class="col-12 mb-5">
+        <a class="btn btn-outline-primary" href="{% url 'blog:create_blog' %}">Добавить новый блог</a>
+    </div>
+    {% for object in object_list %}
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                {% if object.image %}
+                <div class="col-md-12">
+                    <img src="/media/{{ object.image }}" class="w-100" alt="{{ object.title }}">
+                </div>
+                {% endif %}
+                <div class="col p-4 d-flex flex-column position-static">
+                    <h3 class="mb-0">{{ object.title }}</h3>
+                    <div class="mb-1 text-muted">{{ object.create_date }}</div>
+                    <a class="btn btn-lg btn-block btn-outline-primary mt-3"
+                       href="{% url 'blog:view_blog' object.pk %}">Посмотреть</a>
+                    <a class="btn btn-lg btn-block btn-outline-primary mt-3"
+                       href="{% url 'blog:edit_blog' object.pk %}">Изменить</a>
+                    <a class="btn btn-lg btn-block btn-outline-primary mt-3"
+                       href="{% url 'blog:delete_blog' object.pk %}">Удалить</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</main>
+
+</body>
+</html>
+{% endblock %}

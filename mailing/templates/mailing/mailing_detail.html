@@ -1,0 +1,37 @@
+{% extends 'mailing/base.html'  %}
+{% block content %}
+<div class="col-12">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Рассылка {{ object.id }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Клиенты рассылки:<br>
+                        {% for client in object.client.all %}
+                        {{ client.ferst_name }} {{ client.last_name }} / {{ client.email }}<br>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        Период рассылки: {{ object.get_period_display }}
+                    </p>
+                    <p>
+                        Статус рассылки: {{ object.get_status_display }}
+                    </p>
+                    <p>
+                        Время начала рассылки: {{ object.start_time }}
+                    </p>
+                    <p>
+                        Время окончания рассылки: {{ object.end_time }}
+                    </p>
+                    <a type="button" class="btn btn-lg btn-block btn-outline-primary" href="{% url 'mailing:mailing' %}">Назад</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
